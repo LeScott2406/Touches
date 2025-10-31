@@ -5,12 +5,6 @@ import altair as alt
 # --- Page setup ---
 st.set_page_config(page_title="StatsBomb Touch & OBV Analysis", layout="wide")
 
-st.title("⚽ StatsBomb Touch & OBV Analysis Dashboard")
-st.markdown("""
-Explore player performance across competitions using **Touches per 90** and **OBV metrics**.  
-Use the filters on the sidebar to select competitions, positions, teams, ages, and usage.
-""")
-
 # --- Load data ---
 @st.cache_data
 def load_data():
@@ -57,13 +51,6 @@ filtered = filtered[
     (filtered["Usage"].between(usage_range[0], usage_range[1]))
 ]
 
-# --- Key metrics ---
-st.subheader("Summary Statistics")
-col1, col2, col3 = st.columns(3)
-col1.metric("Players", len(filtered))
-col2.metric("Avg Touches per 90", round(filtered["Touches per 90"].mean(), 1))
-col3.metric("Avg OBV", round(filtered["OBV"].mean(), 3))
-
 # --- Main data table ---
 st.subheader("Player Data")
 st.dataframe(
@@ -96,7 +83,3 @@ chart = (
 )
 
 st.altair_chart(chart, use_container_width=True)
-
-# --- Footer ---
-st.markdown("---")
-st.caption("Built with ❤️ using Streamlit and StatsBomb data.")
