@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import altair as alt
 
 # --- Page setup ---
 st.set_page_config(page_title="StatsBomb Touch & OBV Analysis", layout="wide")
@@ -63,23 +62,3 @@ st.dataframe(
     ].sort_values("Touches per 90", ascending=False),
     use_container_width=True,
 )
-
-# --- Chart: Touches per 90 vs OBV ---
-st.subheader("Touches per 90 vs OBV Rank")
-
-chart = (
-    alt.Chart(filtered)
-    .mark_circle(size=80, opacity=0.7)
-    .encode(
-        x=alt.X("Touches per 90", title="Touches per 90"),
-        y=alt.Y("OBV Rank", title="OBV Rank (0–100)"),
-        color="Position",
-        tooltip=[
-            "Player Name", "Team", "Competition", "Position",
-            "Touches per 90", "OBV", "OBV Rank"
-        ],
-    )
-    .interactive()
-)
-
-st.altair_chart(chart, use_container_width=True)
